@@ -218,7 +218,7 @@
                       v-if="resetAttackRoll"
                       :preset="`1d20+${mech.AttackBonus}`"
                       :preset-accuracy="accuracy - difficulty"
-                      autoroll=true
+                      :autoroll="true"
                       title="ATTACK ROLL"
                       @commit="attackRoll = $event.total"
                     />
@@ -371,7 +371,7 @@ each source of damage is used.`"
                         :title="`${d.Type} DAMAGE ROLL`"
                         :overkill="overkill"
                         :critical="crit"
-                        autoroll=true
+                        :autoroll="true"
                         @commit="setDamage(i, $event)"
                       />
                     </v-col>
