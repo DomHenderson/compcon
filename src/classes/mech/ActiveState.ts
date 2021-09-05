@@ -543,6 +543,12 @@ class ActiveState {
     this.Actions -= activationCost
     if (action.HeatCost) this.ActiveMech.CurrentHeat += action.HeatCost
 
+    if(action.StatusesToApply) {
+        action.StatusesToApply.forEach((s: string) => {
+            this.ActiveMech.AddStatus(s);
+        })
+    }
+
     if (action.Deployable) {
       const instances = action.Deployable.instances || 1
       for (let i = 0; i < instances; i++) {

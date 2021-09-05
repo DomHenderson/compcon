@@ -26,6 +26,7 @@ interface IActionData {
   ignore_used?: boolean
   heat_cost?: number
   tech_attack?: boolean
+  statuses_to_apply?: string[]
 }
 
 enum ActivePeriod {
@@ -113,6 +114,7 @@ class Action {
   public readonly SynergyLocations: string[]
   public readonly Confirm: string[]
   public readonly Log: string
+  public readonly StatusesToApply: string[]
   public Deployable: IDeployableData
   private _uses: number
   private _used: boolean
@@ -158,6 +160,7 @@ class Action {
     this._free_used = false
     this.LastUse = null
     this._log_id = ''
+    this.StatusesToApply = data.statuses_to_apply || []
   }
 
   public get Used(): boolean {
@@ -269,7 +272,8 @@ class Action {
       log: action.Log,
       ignore_used: action._ignore_used,
       heat_cost: action.HeatCost,
-      tech_attack: action.IsTechAttack
+      tech_attack: action.IsTechAttack,
+      statuses_to_apply: action.StatusesToApply
     }
   }
 }
