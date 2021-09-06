@@ -5,7 +5,7 @@
 
 import { store } from '@/store'
 import { Mech, Deployable, Pilot, MechEquipment, MechWeapon, Mount, ActivationType } from '@/class'
-import { Action } from '@/interface'
+import { Action, AppliedStatus } from '../Action'
 import { IDeployableData, IDeployedData } from '../Deployable'
 import { mission } from '@/io/Generators'
 import { Duration } from '../enums'
@@ -120,6 +120,9 @@ class ActiveState {
 
   private _stageNextTurnCoreEnd: boolean
   private _stageNextRoundCoreEnd: boolean
+
+  //tracked status/condition info
+  private _trackedStatuses: AppliedStatus[];
 
   private _stats: ICombatStats
 
@@ -626,7 +629,9 @@ class ActiveState {
     })
   }
 
-  public SetStatusCondition(statuses: string[], isStatus?: boolean) {
+  //Overwrite full list of statuses or conditions
+  //Used by the ui status/condition menus
+  public SetStatusCondition(statuses: string[], isStatus?: boolean, duration?: Duration) {
     const scType = isStatus ? 'Statuses' : 'Conditions'
     if (!statuses.length) {
       this.ActiveMech[scType] = statuses

@@ -1,9 +1,25 @@
 import uuid from 'uuid/v4'
-import { ActivationType, Damage, Range } from '@/class'
+import { ActivationType, Damage, Duration, Range } from '@/class'
 import { IDeployableData } from './Deployable'
 import { isNumber } from 'lodash'
 import { IDamageData } from './Damage'
 import { IRangeData } from './Range'
+
+interface IAppliedStatus {
+  status: string,
+  duration: Duration
+}
+
+class AppliedStatus {
+  public readonly status: string;
+  public readonly duration: Duration;
+  private _
+
+  public constructor(data: IAppliedStatus) {
+    this.status = data.status;
+    this.duration = data.duration;
+  }
+}
 
 interface IActionData {
   id?: string
@@ -26,7 +42,7 @@ interface IActionData {
   ignore_used?: boolean
   heat_cost?: number
   tech_attack?: boolean
-  statuses_to_apply?: string[]
+  statuses_to_apply?: IAppliedStatus[]
 }
 
 enum ActivePeriod {
@@ -278,4 +294,4 @@ class Action {
   }
 }
 
-export { IActionData, Action }
+export { IActionData, Action, AppliedStatus }
